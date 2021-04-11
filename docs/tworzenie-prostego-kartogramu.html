@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Mapy tematyczne w R</title>
-  <meta name="description" content="Mapy tematyczne w R" />
+  <title>Tworzenie prostego kartogramu | Mapy tematyczne w R</title>
+  <meta name="description" content="Tworzenie prostego kartogramu | Mapy tematyczne w R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Mapy tematyczne w R" />
+  <meta property="og:title" content="Tworzenie prostego kartogramu | Mapy tematyczne w R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mapy tematyczne w R" />
+  <meta name="twitter:title" content="Tworzenie prostego kartogramu | Mapy tematyczne w R" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="wykorzystywane-pakiety.html"/>
 
-<link rel="next" href="wykorzystywane-pakiety.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -155,22 +155,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Mapy tematyczne w R</h1>
-<p class="author"><em>Tomasz Klimanek</em></p>
-<address class="author_afil">
-Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu<br><a class="author_email" href="mailto:#"><a href="mailto:tomasz.klimanek@ue.poznan.pl" class="email">tomasz.klimanek@ue.poznan.pl</a></a>
-</address>
-<p class="date"><em>2021-04-12</em></p>
-</div>
-<div id="wstęp" class="section level1 unnumbered">
-<h1>Wstęp</h1>
-<p>Na poprzednich zajęciach przedstawione zostały metody tworzenia map konturowych dla różnych podziałów administracyjnych i statystycznych. W tym celu wykorzystano pakiet <strong>sf</strong>. Natomiast głównym celem niniejszych zajeć bedzie stworzenie wykresów mapowych, tzw. kartogramów tj. map tematycznych przedstawiajacych natezenie danego zjawiska w poszczególnych jednostkach podziału przestrzennego.</p>
-<p>Przedstawienie sekwencyjne tematyki map, tzn. najpierw mapy konturowe, a dalszej kolejności mapy tematyczne wynika stąd, że często wprowadza się podział zbiorów służących tworzeniu map na dwa rodzaje, w zależności od danych, jakie zawierają:</p>
-<ul>
-<li>dane przestrzenne (służące do narysowania mapy konturowej, zawierające informacje o współrzędnych, ich przekształceniach, zastosowanych układach współrzędnych, etc.)</li>
-<li>dane atrybutowe (przechowujące wartości zjawisk, które mają być wyświetlone na mapach w powiązaniu z identyfikatorami obiektów mapowych: poligonów, linii, punktów).</li>
-</ul>
+<div id="tworzenie-prostego-kartogramu" class="section level1 unnumbered">
+<h1>Tworzenie prostego kartogramu</h1>
+<p>Korzystając z publikacji <a href="https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/bezrobocie-rejestrowane-i-iv-kwartal-2020-roku,3,43.html"><strong>Bezrobocie rejestrowane. I-IV kwartał 2020 roku</strong></a>, spróbujmy odtworzyć prosty kartogram zamieszczony na stronie 9 tego opracowania.
+<img src="docs/images/bezrobocie_rej_XII_2020.PNG" width="574" style="display: block; margin: auto;" /></p>
 
 </div>
             </section>
@@ -178,8 +166,8 @@ Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu<br><a class="author_email
           </div>
         </div>
       </div>
+<a href="wykorzystywane-pakiety.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="wykorzystywane-pakiety.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -210,7 +198,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/klimanekt/mapy_tematyczne/edit/master/index.Rmd",
+"link": "https://github.com/klimanekt/mapy_tematyczne/edit/master/03-kartogram.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -218,7 +206,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/klimanekt/mapy_tematyczne/blob/master/index.Rmd",
+"link": "https://github.com/klimanekt/mapy_tematyczne/blob/master/03-kartogram.Rmd",
 "text": null
 },
 "download": null,
