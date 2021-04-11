@@ -1,9 +1,12 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Mapy tematyczne w R"
+author: 
+- name: "Tomasz Klimanek"
+  affiliation: "Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu"
+  email: tomasz.klimanek@ue.poznan.pl
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Down the rabbit-hole
+# Wstęp {-}
 
