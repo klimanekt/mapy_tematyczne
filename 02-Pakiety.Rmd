@@ -1,0 +1,20 @@
+# Wykorzystywane pakiety {-}
+
+W celu stworzenia map tematycznych potrzebne będą następujące pakiety, które należy zainstalować:
+
+```{r eval=FALSE}
+install.packages("readxl")
+install.packages("sf")
+install.packages("dplyr")
+install.packages("classInt")
+install.packages("RColorBrewer")
+```
+
+A następnie wczytujemy odpowiednie biblioteki
+```{r eval=FALSE}
+library("readxl")
+library("sf")
+library("dplyr")
+library("classInt")
+library("RColorBrewer")
+```

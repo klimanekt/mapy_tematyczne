@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Mapy tematyczne w R</title>
-  <meta name="description" content="Mapy tematyczne w R" />
+  <title>Wykorzystywane pakiety | Mapy tematyczne w R</title>
+  <meta name="description" content="Wykorzystywane pakiety | Mapy tematyczne w R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Mapy tematyczne w R" />
+  <meta property="og:title" content="Wykorzystywane pakiety | Mapy tematyczne w R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mapy tematyczne w R" />
+  <meta name="twitter:title" content="Wykorzystywane pakiety | Mapy tematyczne w R" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="wykorzystywane-pakiety.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -155,22 +155,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Mapy tematyczne w R</h1>
-<p class="author"><em>Tomasz Klimanek</em></p>
-<address class="author_afil">
-Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu<br><a class="author_email" href="mailto:#"><a href="mailto:tomasz.klimanek@ue.poznan.pl" class="email">tomasz.klimanek@ue.poznan.pl</a></a>
-</address>
-<p class="date"><em>2021-04-11</em></p>
-</div>
-<div id="wstęp" class="section level1 unnumbered">
-<h1>Wstęp</h1>
-<p>Na poprzednich zajęciach przedstawione zostały metody tworzenia map konturowych dla różnych podziałów administracyjnych i statystycznych. W tym celu wykorzystano pakiet <strong>sf</strong>. Natomiast głównym celem niniejszych zajeć bedzie stworzenie wykresów mapowych, tzw. kartogramów tj. map tematycznych przedstawiajacych natezenie danego zjawiska w poszczególnych jednostkach podziału przestrzennego.</p>
-<p>Przedstawienie sekwencyjne tematyki map, tzn. najpierw mapy konturowe, a dalszej kolejności mapy tematyczne wynika stąd, że często wprowadza się podział zbiorów służących tworzeniu map na dwa rodzaje, w zależności od danych, jakie zawierają:</p>
-<ul>
-<li>dane przestrzenne (służące do narysowania mapy konturowej, zawierające informacje o współrzędnych, ich przekształceniach, zastosowanych układach współrzędnych, etc.)</li>
-<li>dane atrybutowe (przechowujące wartości zjawisk, które mają być wyświetlone na mapach w powiązaniu z identyfikatorami obiektów mapowych: poligonów, linii, punktów).</li>
-</ul>
+<div id="wykorzystywane-pakiety" class="section level1 unnumbered">
+<h1>Wykorzystywane pakiety</h1>
+<p>W celu stworzenia map tematycznych potrzebne będą następujące pakiety, które należy zainstalować:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="wykorzystywane-pakiety.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb1-2"><a href="wykorzystywane-pakiety.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb1-3"><a href="wykorzystywane-pakiety.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb1-4"><a href="wykorzystywane-pakiety.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;classInt&quot;</span>)</span>
+<span id="cb1-5"><a href="wykorzystywane-pakiety.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span></code></pre></div>
+<p>A następnie wczytujemy odpowiednie biblioteki</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="wykorzystywane-pakiety.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb2-2"><a href="wykorzystywane-pakiety.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb2-3"><a href="wykorzystywane-pakiety.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb2-4"><a href="wykorzystywane-pakiety.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;classInt&quot;</span>)</span>
+<span id="cb2-5"><a href="wykorzystywane-pakiety.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span></code></pre></div>
 
 </div>
             </section>
@@ -178,8 +176,8 @@ Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu<br><a class="author_email
           </div>
         </div>
       </div>
-
-<a href="wykorzystywane-pakiety.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -210,7 +208,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/klimanekt/mapy_tematyczne/edit/master/index.Rmd",
+"link": "https://github.com/klimanekt/mapy_tematyczne/edit/master/02-Pakiety.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -218,7 +216,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/klimanekt/mapy_tematyczne/blob/master/index.Rmd",
+"link": "https://github.com/klimanekt/mapy_tematyczne/blob/master/02-Pakiety.Rmd",
 "text": null
 },
 "download": null,
