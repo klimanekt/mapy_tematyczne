@@ -1,13 +1,11 @@
 install.packages("readxl")
 install.packages("sf")
-install.packages("Rtools")
 install.packages("dplyr")
 install.packages("classInt")
 install.packages("RColorBrewer")
 
 library("readxl")
 library("sf")
-library("Rtools")
 library("dplyr")
 library("classInt")
 library("RColorBrewer")
