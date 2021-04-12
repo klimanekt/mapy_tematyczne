@@ -1,0 +1,72 @@
+# Tworzenie prostego kartogramu ćw.2 {-}
+
+
+Korzystając z publikacji [**Komunikat o sytuacji społeczno-gospodarczej województwa wielkopolskiego - luty 2021 r.**](https://poznan.stat.gov.pl/opracowania-biezace/komunikaty-i-biuletyny/inne-opracowania/komunikat-o-sytuacji-spoleczno-gospodarczej-wojewodztwa-wielkopolskiego-luty-2021-r-,1,115.html), spróbujmy stworzyć prosty kartogram zamieszczony na stronie 16 tego opracowania.
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("docs/images/mieszkania_wlkp.PNG",dpi=NA)
+```
+
+W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla powiatów województwa wielkopolskiego za pomocą funkcji *read_xlsx* z pakeitu **readxl**.
+```{r eval=FALSE}
+pow<-read_sf("dane/gadm36_POL_2.shp")
+
+mieszk<-read_xlsx("dane/wlkp_mieszk.xlsx")
+```
+
+Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskiego i dodatkowo tworzymy w zbiorze **mieszk** czteroznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_woj2
+
+```{r eval=FALSE}
+pow_wlkp<-pow[pow$NAME_1=='Wielkopolskie',]
+mieszk$KOD_POW2<-substr(mieszk$KOD_POW,1,4)
+```
+
+Łączymy oba obiekty w jeden zbiór za pomocą funkcji *merge* deklarując nazwy zmiennych, po których łączymy obydwa zbiory.
+
+```{r eval=FALSE}
+dane<-merge(pow_wlkp,mieszk,by.x="CC_2",by.y="KOD_POW2")
+```
+
+
+Kolejnym krokiem będzie podział zmienności badanej cech na przedziały.
+W tym przypadku stworzymy 4 klasy o takich granicach jak w przypadku publikacji US Poznań.
+
+```{r eval=FALSE}
+klasy<-classIntervals(dane$MIESZK,n=5,style="quantile")
+```
+
+
+Następnie z pakietu **RColorBrewer** dobieramy paletę kolorów zbliżoną do tej użytej w publikacji GUS.
+
+```{r eval=FALSE}
+kolory<-brewer.pal(5,"Purples")
+```
+
+Łączymy wyznaczone klasy z kolorami z dobranej palety
+
+```{r eval=FALSE}
+kol_klas<-findColours(klasy,kolory)
+```
+
+
+Generujemy wykres, definiując legendę
+
+```{r eval=FALSE}
+par(mar=rep(0,4),mai=rep(0,4))
+plot(dane["MIESZK"],col=kol_klas)
+legend("bottomleft",
+c(paste0("[", klasy$brks[1], " - ", klasy$brks[2], "]"),
+paste0("[", klasy$brks[2], " - ",klasy$brks[3], "]"),
+paste0("[", klasy$brks[3], " - ",klasy$brks[4], "]"),
+paste0("[", klasy$brks[4], " - ",klasy$brks[5], "]"),
+paste0("[", klasy$brks[5], " - ",klasy$brks[6], "]")),
+fill=attr(kol_klas, "palette"), cex=1, bty="n")
+```
+
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("docs/images/plot2.PNG", dpi=NA)
+```
+
+
+

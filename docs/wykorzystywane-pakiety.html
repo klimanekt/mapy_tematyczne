@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="tworzenie-prostego-kartogramu.html"/>
+<link rel="next" href="tworzenie-prostego-kartogramu-w-1.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -135,7 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wstęp</a></li>
 <li class="chapter" data-level="" data-path="wykorzystywane-pakiety.html"><a href="wykorzystywane-pakiety.html"><i class="fa fa-check"></i>Wykorzystywane pakiety</a></li>
-<li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu.html"><a href="tworzenie-prostego-kartogramu.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu</a></li>
+<li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-w-1.html"><a href="tworzenie-prostego-kartogramu-w-1.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu ćw.1</a></li>
+<li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-w-2.html"><a href="tworzenie-prostego-kartogramu-w-2.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu ćw.2</a></li>
+<li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-zadanie-1.html"><a href="tworzenie-prostego-kartogramu-zadanie-1.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu - zadanie 1</a></li>
+<li class="chapter" data-level="" data-path="edycja-kartogramu.html"><a href="edycja-kartogramu.html"><i class="fa fa-check"></i>Edycja kartogramu</a></li>
+<li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-zadanie-2.html"><a href="tworzenie-prostego-kartogramu-zadanie-2.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu - zadanie 2</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -162,13 +166,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="wykorzystywane-pakiety.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</span>
 <span id="cb1-3"><a href="wykorzystywane-pakiety.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
 <span id="cb1-4"><a href="wykorzystywane-pakiety.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;classInt&quot;</span>)</span>
-<span id="cb1-5"><a href="wykorzystywane-pakiety.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span></code></pre></div>
+<span id="cb1-5"><a href="wykorzystywane-pakiety.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb1-6"><a href="wykorzystywane-pakiety.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>A następnie wczytujemy odpowiednie biblioteki</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="wykorzystywane-pakiety.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span>
 <span id="cb2-2"><a href="wykorzystywane-pakiety.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;sf&quot;</span>)</span>
 <span id="cb2-3"><a href="wykorzystywane-pakiety.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
 <span id="cb2-4"><a href="wykorzystywane-pakiety.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;classInt&quot;</span>)</span>
-<span id="cb2-5"><a href="wykorzystywane-pakiety.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span></code></pre></div>
+<span id="cb2-5"><a href="wykorzystywane-pakiety.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb2-6"><a href="wykorzystywane-pakiety.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 
 </div>
             </section>
@@ -177,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tworzenie-prostego-kartogramu.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tworzenie-prostego-kartogramu-w-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

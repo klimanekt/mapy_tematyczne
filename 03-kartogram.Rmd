@@ -1,7 +1,70 @@
-# Tworzenie prostego kartogramu {-}
+# Tworzenie prostego kartogramu ćw.1 {-}
 
 
-Korzystając z publikacji [**Bezrobocie rejestrowane. I-IV kwartał 2020 roku**](https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/bezrobocie-rejestrowane-i-iv-kwartal-2020-roku,3,43.html), spróbujmy odtworzyć prosty kartogram zamieszczony na stronie 9 tego opracowania.
+Korzystając z publikacji [**Bezrobocie rejestrowane. I-IV kwartał 2020 roku**](https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/bezrobocie-rejestrowane-i-iv-kwartal-2020-roku,3,43.html), spróbujmy stworzyć prosty kartogram zamieszczony na stronie 9 tego opracowania.
+
 ```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("docs/images/bezrobocie_rej_XII_2020.PNG")
+knitr::include_graphics("docs/images/bezrobocie_rej_XII_2020.PNG",dpi=NA)
 ```
+
+W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla województw za pomocą funkcji *read_xlsx* z pakeitu **readxl**.
+```{r eval=FALSE}
+woj<-read_sf("gadm36_POL_1.shp")
+
+unempl<-read_xlsx("woj_un_rate.xlsx")
+```
+
+Dodatkowo tworzymy w zbiorze **unempl** dwuznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_woj2
+
+```{r eval=FALSE}
+unempl$KOD_WOJ2<-substr(unempl$KOD_WOJ,1,2)
+```
+
+Łączymy oba obiekty w jeden zbiór za pomocą funkcji *merge* deklarując nazwy zmiennych, po których łączymy obydwa zbiory.
+
+```{r eval=FALSE}
+dane<-merge(woj,unempl,by.x="CC_1",by.y="KOD_WOJ2")
+```
+
+
+Kolejnym krokiem będzie podział zmienności badanej cech na przedziały.
+W tym przypadku stworzymy 4 klasy o takich granicach jak w przypadku publikacji GUS.
+
+```{r eval=FALSE}
+klasy<-classIntervals(dane$UN_RATE,n=4,style="fixed",fixedBreaks=c(3.7,5.3,6.9,8.5,10.1))
+```
+
+
+Następnie z pakietu **RColorBrewer** dobieramy paletę kolorów zbliżoną do tej użytej w publikacji GUS.
+
+```{r eval=FALSE}
+kolory<-brewer.pal(4,"BuGn")
+```
+
+Łączymy wyznaczone klasy z kolorami z dobranej palety
+
+```{r eval=FALSE}
+kol_klas<-findColours(klasy,kolory)
+```
+
+
+Generujemy wykres, definiując legendę
+
+```{r eval=FALSE}
+par(mar=rep(0,4),mai=rep(0,4))
+plot(dane["UN_RATE"],col=kol_klas)
+legend("bottomleft",
+c(paste0("[", klasy$brks[1], " - ", klasy$brks[2], "]"),
+paste0("[", klasy$brks[2], " - ",klasy$brks[3], "]"),
+paste0("[", klasy$brks[3], " - ",klasy$brks[4], "]"),
+paste0("[", klasy$brks[4], " - ",klasy$brks[5], "]")),
+fill=attr(kol_klas, "palette"), cex=1, bty="n")
+```
+
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("docs/images/plot1.PNG", dpi=NA)
+```
+
+
+

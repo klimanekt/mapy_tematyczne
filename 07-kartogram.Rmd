@@ -1,0 +1,9 @@
+# Tworzenie prostego kartogramu - zadanie 2 {-}
+
+
+Na bazie kartogramu z zadania 1 **Tworzenie prostego kartogramu - zadanie 1**, zmodyfikuj go dodając:
+
+- tytuł wykresu,
+- nazwy gmin,
+- wartości zmiennych,
+- liczbę obiektów w legendzie.

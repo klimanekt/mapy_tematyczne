@@ -8,6 +8,7 @@ install.packages("sf")
 install.packages("dplyr")
 install.packages("classInt")
 install.packages("RColorBrewer")
+install.packages("ggplot2")
 ```
 
 A następnie wczytujemy odpowiednie biblioteki
@@ -17,4 +18,5 @@ library("sf")
 library("dplyr")
 library("classInt")
 library("RColorBrewer")
+library("ggplot2")
 ```

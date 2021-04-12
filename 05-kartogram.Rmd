@@ -1,0 +1,8 @@
+# Tworzenie prostego kartogramu - zadanie 1 {-}
+
+
+Korzystając z publikacji [**Metropolia Poznań 2010-2019**](https://poznan.stat.gov.pl/publikacje-i-foldery/inne-opracowania/metropolia-poznan-2010-2019,11,1.html) oraz danych w ***Banku Danych Lokalnych***(https://bdl.stat.gov.pl/BDL/start) spróbuj stworzyć prosty kartogram zamieszczony na stronie 22 tego opracowania.
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("docs/images/density_metr.PNG",dpi=NA)
+```
