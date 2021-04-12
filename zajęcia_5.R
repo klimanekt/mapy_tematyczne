@@ -111,3 +111,6 @@ ile<-attr(kol_klas,which = 'table')
 str(ile)
 ile2[[0]]
 <-attr(ile,which = 'dimnames')
+levels(klasy)
+str(klasy)
+?c

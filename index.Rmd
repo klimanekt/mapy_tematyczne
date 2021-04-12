@@ -15,4 +15,4 @@ Na poprzednich zajęciach przedstawione zostały metody tworzenia map konturowyc
 Przedstawienie sekwencyjne tematyki map, tzn. najpierw mapy konturowe, a w dalszej kolejności mapy tematyczne wynika stąd, że często wprowadza się podział zbiorów służących tworzeniu map na dwa rodzaje, w zależności od danych, jakie zawierają:
 
 - dane przestrzenne (służące do narysowania mapy konturowej, zawierające informacje o\ współrzędnych, ich przekształceniach, zastosowanych układach współrzędnych, etc.)
-- dane atrybutowe (przechowujące wartości zjawisk, które mają być wyświetlone na mapach w\ powiązaniu z identyfikatorami obiektów mapowych: poligonów, linii, punktów).
+- dane atrybutowe (przechowujące wartości zmiennych opisujących dane zjawisko, które mają być wyświetlone na mapach w\ powiązaniu z identyfikatorami obiektów mapowych: poligonów, linii, punktów).

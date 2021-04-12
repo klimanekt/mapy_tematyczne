@@ -7,7 +7,7 @@ Korzystając z publikacji [**Bezrobocie rejestrowane. I-IV kwartał 2020 roku**]
 knitr::include_graphics("docs/images/bezrobocie_rej_XII_2020.PNG",dpi=NA)
 ```
 
-W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla województw za pomocą funkcji *read_xlsx* z pakeitu **readxl**.
+W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla województw za pomocą funkcji *read_xlsx* z pakietu **readxl**.
 ```{r eval=FALSE}
 woj<-read_sf("gadm36_POL_1.shp")
 

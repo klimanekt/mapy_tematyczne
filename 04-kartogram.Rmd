@@ -7,7 +7,7 @@ Korzystając z publikacji [**Komunikat o sytuacji społeczno-gospodarczej wojew�
 knitr::include_graphics("docs/images/mieszkania_wlkp.PNG",dpi=NA)
 ```
 
-W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla powiatów województwa wielkopolskiego za pomocą funkcji *read_xlsx* z pakeitu **readxl**.
+W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla powiatów województwa wielkopolskiego za pomocą funkcji *read_xlsx* z pakietu **readxl**.
 ```{r eval=FALSE}
 pow<-read_sf("dane/gadm36_POL_2.shp")
 

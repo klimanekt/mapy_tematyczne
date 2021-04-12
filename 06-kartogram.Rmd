@@ -19,6 +19,8 @@ dane<-merge(woj,unempl,by.x="CC_1",by.y="KOD_WOJ2")
 klasy<-classIntervals(dane$UN_RATE,n=4,style="fixed",fixedBreaks=c(3.7,5.3,6.9,8.5,10.1))
 kolory<-brewer.pal(4,"BuGn")
 kol_klas<-findColours(klasy,kolory)
+str(klasy)
+levels(klasy)
 ```
 
 

@@ -163,7 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>Tworzenie prostego kartogramu ćw.1</h1>
 <p>Korzystając z publikacji <a href="https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/bezrobocie-rejestrowane-i-iv-kwartal-2020-roku,3,43.html"><strong>Bezrobocie rejestrowane. I-IV kwartał 2020 roku</strong></a>, spróbujmy stworzyć prosty kartogram zamieszczony na stronie 9 tego opracowania.</p>
 <p><img src="docs/images/bezrobocie_rej_XII_2020.PNG" style="display: block; margin: auto;" /></p>
-<p>W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji <em>read_sf</em> z pakietu <strong>sf</strong>, a następnie dane atrybutowe dla województw za pomocą funkcji <em>read_xlsx</em> z pakeitu <strong>readxl</strong>.</p>
+<p>W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji <em>read_sf</em> z pakietu <strong>sf</strong>, a następnie dane atrybutowe dla województw za pomocą funkcji <em>read_xlsx</em> z pakietu <strong>readxl</strong>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tworzenie-prostego-kartogramu-w-1.html#cb3-1" aria-hidden="true" tabindex="-1"></a>woj<span class="ot">&lt;-</span><span class="fu">read_sf</span>(<span class="st">&quot;gadm36_POL_1.shp&quot;</span>)</span>
 <span id="cb3-2"><a href="tworzenie-prostego-kartogramu-w-1.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="tworzenie-prostego-kartogramu-w-1.html#cb3-3" aria-hidden="true" tabindex="-1"></a>unempl<span class="ot">&lt;-</span><span class="fu">read_xlsx</span>(<span class="st">&quot;woj_un_rate.xlsx&quot;</span>)</span></code></pre></div>
