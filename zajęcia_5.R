@@ -55,7 +55,8 @@ kolory<-brewer.pal(5,"Purples")
 kol_klas<-findColours(klasy,kolory)
 
 par(mar=rep(0,4),mai=rep(0,4))
-plot(dane["MIESZK"],col=kol_klas)
+plot(dane["MIESZK"],col=kol_klas, 
+     main="Mapa 2. Mieszkania oddane do użytkowania według powiatów w okresie styczeń-luty 2021 r.")
 legend("bottomleft",
        c(paste0("[", klasy$brks[1], " - ", klasy$brks[2], "]"),
          paste0("[", klasy$brks[2], " - ",klasy$brks[3], "]"),
@@ -65,7 +66,7 @@ legend("bottomleft",
        fill=attr(kol_klas, "palette"), cex=1, bty="n")
 
 
-
+?plot
 
 woj<-read_sf("dane/gadm36_POL_1.shp")
 

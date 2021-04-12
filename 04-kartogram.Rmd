@@ -14,7 +14,7 @@ pow<-read_sf("dane/gadm36_POL_2.shp")
 mieszk<-read_xlsx("dane/wlkp_mieszk.xlsx")
 ```
 
-Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskiego i dodatkowo tworzymy w zbiorze **mieszk** czteroznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_woj2
+Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskiego i dodatkowo tworzymy w zbiorze **mieszk** czteroznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_pow2
 
 ```{r eval=FALSE}
 pow_wlkp<-pow[pow$NAME_1=='Wielkopolskie',]
@@ -29,7 +29,7 @@ dane<-merge(pow_wlkp,mieszk,by.x="CC_2",by.y="KOD_POW2")
 
 
 Kolejnym krokiem będzie podział zmienności badanej cech na przedziały.
-W tym przypadku stworzymy 4 klasy o takich granicach jak w przypadku publikacji US Poznań.
+W tym przypadku stworzymy 5 klas o granicach opartych o przedziały kwintylowe (w każdym będzie 20% wszystkich obiektów - powiatów).
 
 ```{r eval=FALSE}
 klasy<-classIntervals(dane$MIESZK,n=5,style="quantile")
@@ -53,7 +53,8 @@ Generujemy wykres, definiując legendę
 
 ```{r eval=FALSE}
 par(mar=rep(0,4),mai=rep(0,4))
-plot(dane["MIESZK"],col=kol_klas)
+plot(dane["MIESZK"],col=kol_klas, 
+     main="Mapa 2. Mieszkania oddane do użytkowania według powiatów w okresie styczeń-luty 2021 r.")
 legend("bottomleft",
 c(paste0("[", klasy$brks[1], " - ", klasy$brks[2], "]"),
 paste0("[", klasy$brks[2], " - ",klasy$brks[3], "]"),
@@ -65,7 +66,7 @@ fill=attr(kol_klas, "palette"), cex=1, bty="n")
 
 
 ```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("docs/images/plot2.PNG", dpi=NA)
+knitr::include_graphics("docs/images/mieszkania_wlkp2.PNG", dpi=NA)
 ```
 
 
