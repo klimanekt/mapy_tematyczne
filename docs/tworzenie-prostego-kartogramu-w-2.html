@@ -175,21 +175,21 @@ Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskie
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tworzenie-prostego-kartogramu-w-2.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb11-2"><a href="tworzenie-prostego-kartogramu-w-2.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dane_2) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="tworzenie-prostego-kartogramu-w-2.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p><strong>Dodanie tytułu i opisu osi wykresu mapowego.</strong></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tworzenie-prostego-kartogramu-w-2.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb12-2"><a href="tworzenie-prostego-kartogramu-w-2.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dane_2) <span class="sc">+</span></span>
 <span id="cb12-3"><a href="tworzenie-prostego-kartogramu-w-2.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
 <span id="cb12-4"><a href="tworzenie-prostego-kartogramu-w-2.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Długość geograficzna&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Szerokość geograficzna&quot;</span>) <span class="sc">+</span></span>
 <span id="cb12-5"><a href="tworzenie-prostego-kartogramu-w-2.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Bez podmiotów gospodarczych do 9 osób&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p><strong>Wyłączenie wyświetlania siatki i współrzędnych geograficznych, białe tło.</strong></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tworzenie-prostego-kartogramu-w-2.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb13-2"><a href="tworzenie-prostego-kartogramu-w-2.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dane_2) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="tworzenie-prostego-kartogramu-w-2.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill=</span><span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb13-4"><a href="tworzenie-prostego-kartogramu-w-2.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Bez podmiotów gospodarczych do 9 osób&quot;</span>) <span class="sc">+</span></span>
 <span id="cb13-5"><a href="tworzenie-prostego-kartogramu-w-2.html#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">rect=</span><span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><strong>Kolorystyka mapy, legenda.</strong></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tworzenie-prostego-kartogramu-w-2.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb14-2"><a href="tworzenie-prostego-kartogramu-w-2.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dane_2) <span class="sc">+</span></span>
@@ -198,7 +198,7 @@ Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskie
 <span id="cb14-5"><a href="tworzenie-prostego-kartogramu-w-2.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Bez podmiotów gospodarczych do 9 osób&quot;</span>) <span class="sc">+</span></span>
 <span id="cb14-6"><a href="tworzenie-prostego-kartogramu-w-2.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">rect=</span><span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb14-7"><a href="tworzenie-prostego-kartogramu-w-2.html#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p><strong>Dodanie adnotacji oraz etykiet - nazw województw i wartości wskaźnika.</strong></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tworzenie-prostego-kartogramu-w-2.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb15-2"><a href="tworzenie-prostego-kartogramu-w-2.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dane_2) <span class="sc">+</span></span>
@@ -214,7 +214,7 @@ Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskie
 <pre><code>## Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not give correct results for longitude/latitude data
 
 ## Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not give correct results for longitude/latitude data</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="768" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-1.png" width="1152" /></p>
 
 </div>
             </section>

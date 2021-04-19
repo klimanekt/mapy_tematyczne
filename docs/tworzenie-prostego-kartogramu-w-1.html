@@ -174,14 +174,14 @@ W zbiorze <strong>unempl</strong> dwuznakowy kod województwa za pomocą funkcji
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tworzenie-prostego-kartogramu-w-1.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb4-2"><a href="tworzenie-prostego-kartogramu-w-1.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dane_1) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="tworzenie-prostego-kartogramu-w-1.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p><strong>Dodanie tytułu i opisu osi wykresu mapowego.</strong></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tworzenie-prostego-kartogramu-w-1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
 <span id="cb5-2"><a href="tworzenie-prostego-kartogramu-w-1.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dane_1) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="tworzenie-prostego-kartogramu-w-1.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
 <span id="cb5-4"><a href="tworzenie-prostego-kartogramu-w-1.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Długość geograficzna&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Szerokość geograficzna&quot;</span>) <span class="sc">+</span></span>
 <span id="cb5-5"><a href="tworzenie-prostego-kartogramu-w-1.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mapa 1. Stopa bezrobocia</span><span class="sc">\n</span><span class="st">Stan w końcu grudnia 2020 r.&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Map 1. Unemployment rate</span><span class="sc">\n</span><span class="st">As of the end of December 2020&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><strong>Wyłączenie wyświetlania siatki i współrzędnych geograficznych, białe tło.</strong></p>
 <ul>
 <li>dodanie opcji <em>fill=NA</em> w poleceniu <em>geom_sf</em> w celu wyeliminowania szarego tła</li>
@@ -199,7 +199,7 @@ W zbiorze <strong>unempl</strong> dwuznakowy kod województwa za pomocą funkcji
 <span id="cb6-3"><a href="tworzenie-prostego-kartogramu-w-1.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill=</span><span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb6-4"><a href="tworzenie-prostego-kartogramu-w-1.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mapa 1. Stopa bezrobocia</span><span class="sc">\n</span><span class="st">Stan w końcu grudnia 2020 r.&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Map 1. Unemployment rate</span><span class="sc">\n</span><span class="st">As of the end of December 2020&quot;</span>) <span class="sc">+</span></span>
 <span id="cb6-5"><a href="tworzenie-prostego-kartogramu-w-1.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">rect=</span><span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p><strong>Kolorystyka mapy, legenda.</strong></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tworzenie-prostego-kartogramu-w-1.html#cb7-1" aria-hidden="true" tabindex="-1"></a>intervals<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">3.6</span>,<span class="fl">5.2</span>,<span class="fl">6.8</span>,<span class="fl">8.4</span>,<span class="fl">10.1</span>)</span>
 <span id="cb7-2"><a href="tworzenie-prostego-kartogramu-w-1.html#cb7-2" aria-hidden="true" tabindex="-1"></a>dane_1<span class="sc">$</span>groups<span class="ot">&lt;-</span><span class="fu">as.character</span>(<span class="fu">cut</span>(dane_1<span class="sc">$</span>UN_RATE,<span class="at">breaks=</span>intervals))</span>
@@ -218,7 +218,7 @@ W zbiorze <strong>unempl</strong> dwuznakowy kod województwa za pomocą funkcji
 <span id="cb7-15"><a href="tworzenie-prostego-kartogramu-w-1.html#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">reverse =</span> T)) <span class="sc">+</span></span>
 <span id="cb7-16"><a href="tworzenie-prostego-kartogramu-w-1.html#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">rect=</span><span class="fu">element_blank</span>(), <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb7-17"><a href="tworzenie-prostego-kartogramu-w-1.html#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.15</span>),<span class="at">legend.title.align=</span><span class="fl">0.5</span>,<span class="at">legend.text.align =</span>  )</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><strong>Dodanie adnotacji oraz etykiet - nazw województw i wartości wskaźnika.</strong></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="tworzenie-prostego-kartogramu-w-1.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dane_1) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="tworzenie-prostego-kartogramu-w-1.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill=</span>groups)) <span class="sc">+</span></span>
@@ -236,7 +236,7 @@ W zbiorze <strong>unempl</strong> dwuznakowy kod województwa za pomocą funkcji
 <pre><code>## Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not give correct results for longitude/latitude data
 
 ## Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not give correct results for longitude/latitude data</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 
 </div>
             </section>
