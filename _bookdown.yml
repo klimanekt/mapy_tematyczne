@@ -1,8 +1,8 @@
 book_filename: "bookdownproj"
 output_dir: docs
 delete_merged_file: true
-edit: https://github.com/klimanekt/mapy_tematyczne/edit/master/%s
-view: https://github.com/klimanekt/mapy_tematyczne/blob/master/%s
+edit: https://github.com/klimanekt/mapy_tematyczne2/edit/master/%s
+view: https://github.com/klimanekt/mapy_tematyczne2/blob/master/%s
 language:
   ui:
     chapter_name: "Rozdział"
