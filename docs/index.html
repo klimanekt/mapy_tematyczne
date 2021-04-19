@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Mapy tematyczne w R</title>
-  <meta name="description" content="Mapy tematyczne w R" />
+  <title>Mapy tematyczne w R: ggplot2, tmap</title>
+  <meta name="description" content="Mapy tematyczne w R: ggplot2, tmap" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Mapy tematyczne w R" />
+  <meta property="og:title" content="Mapy tematyczne w R: ggplot2, tmap" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mapy tematyczne w R" />
+  <meta name="twitter:title" content="Mapy tematyczne w R: ggplot2, tmap" />
   
   
   
 
 
 
-<meta name="date" content="2021-04-12" />
+<meta name="date" content="2021-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-w-1.html"><a href="tworzenie-prostego-kartogramu-w-1.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu ćw.1</a></li>
 <li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-w-2.html"><a href="tworzenie-prostego-kartogramu-w-2.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu ćw.2</a></li>
 <li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-zadanie-1.html"><a href="tworzenie-prostego-kartogramu-zadanie-1.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu - zadanie 1</a></li>
-<li class="chapter" data-level="" data-path="edycja-kartogramu.html"><a href="edycja-kartogramu.html"><i class="fa fa-check"></i>Edycja kartogramu</a></li>
+<li class="chapter" data-level="" data-path="kartogramy-w-pakiecie-tmap.html"><a href="kartogramy-w-pakiecie-tmap.html"><i class="fa fa-check"></i>Kartogramy w pakiecie tmap</a></li>
 <li class="chapter" data-level="" data-path="tworzenie-prostego-kartogramu-zadanie-2.html"><a href="tworzenie-prostego-kartogramu-zadanie-2.html"><i class="fa fa-check"></i>Tworzenie prostego kartogramu - zadanie 2</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -151,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mapy tematyczne w R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mapy tematyczne w R: ggplot2, tmap</a>
           </h1>
         </div>
 
@@ -160,21 +160,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Mapy tematyczne w R</h1>
+<h1 class="title">Mapy tematyczne w R: ggplot2, tmap</h1>
 <p class="author"><em>Tomasz Klimanek</em></p>
 <address class="author_afil">
 Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu<br><a class="author_email" href="mailto:#"><a href="mailto:tomasz.klimanek@ue.poznan.pl" class="email">tomasz.klimanek@ue.poznan.pl</a></a>
 </address>
-<p class="date"><em>2021-04-12</em></p>
+<p class="date"><em>2021-04-19</em></p>
 </div>
 <div id="wstęp" class="section level1 unnumbered">
 <h1>Wstęp</h1>
-<p>Na poprzednich zajęciach przedstawione zostały metody tworzenia map konturowych dla różnych podziałów administracyjnych i statystycznych. W tym celu wykorzystano pakiet <strong>sf</strong>. Natomiast głównym celem niniejszych zajeć będzie stworzenie wykresów mapowych, tzw. kartogramów tj. map tematycznych przedstawiających natęzenie danego zjawiska w poszczególnych jednostkach podziału przestrzennego.</p>
-<p>Przedstawienie sekwencyjne tematyki map, tzn. najpierw mapy konturowe, a w dalszej kolejności mapy tematyczne wynika stąd, że często wprowadza się podział zbiorów służących tworzeniu map na dwa rodzaje, w zależności od danych, jakie zawierają:</p>
-<ul>
-<li>dane przestrzenne (służące do narysowania mapy konturowej, zawierające informacje o współrzędnych, ich przekształceniach, zastosowanych układach współrzędnych, etc.)</li>
-<li>dane atrybutowe (przechowujące wartości zmiennych opisujących dane zjawisko, które mają być wyświetlone na mapach w powiązaniu z identyfikatorami obiektów mapowych: poligonów, linii, punktów).</li>
-</ul>
+<p>Na poprzednich zajęciach przedstawione zostały metody tworzenia map tematycznych za pomocą funkcji <em>plot</em> z pakietu <strong>base</strong>. Celem niniejszych zajeć będzie kontynuacja problematyki tworzenia map tematycznych, ale za pomocą pakietów <strong>ggplot2</strong> oraz <strong>tmap</strong>.</p>
 
 </div>
             </section>

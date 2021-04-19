@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Edycja kartogramu | Mapy tematyczne w R</title>
-  <meta name="description" content="Edycja kartogramu | Mapy tematyczne w R" />
+  <title>Edycja kartogramu | Mapy tematyczne w R: ggplot2, tmap</title>
+  <meta name="description" content="Edycja kartogramu | Mapy tematyczne w R: ggplot2, tmap" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Edycja kartogramu | Mapy tematyczne w R" />
+  <meta property="og:title" content="Edycja kartogramu | Mapy tematyczne w R: ggplot2, tmap" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Edycja kartogramu | Mapy tematyczne w R" />
+  <meta name="twitter:title" content="Edycja kartogramu | Mapy tematyczne w R: ggplot2, tmap" />
   
   
   
 
 
 
-<meta name="date" content="2021-04-12" />
+<meta name="date" content="2021-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mapy tematyczne w R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mapy tematyczne w R: ggplot2, tmap</a>
           </h1>
         </div>
 
@@ -169,34 +169,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>liczbę obiektów w legendzie.</li>
 </ul>
 <p>Powtórzenie kodu z części <strong>Tworzenie prostego kartogramu ćw.1</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="edycja-kartogramu.html#cb17-1" aria-hidden="true" tabindex="-1"></a>woj<span class="ot">&lt;-</span><span class="fu">read_sf</span>(<span class="st">&quot;dane/gadm36_POL_1.shp&quot;</span>)</span>
-<span id="cb17-2"><a href="edycja-kartogramu.html#cb17-2" aria-hidden="true" tabindex="-1"></a>unempl<span class="ot">&lt;-</span><span class="fu">read_xlsx</span>(<span class="st">&quot;dane/woj_un_rate.xlsx&quot;</span>)</span>
-<span id="cb17-3"><a href="edycja-kartogramu.html#cb17-3" aria-hidden="true" tabindex="-1"></a>unempl<span class="sc">$</span>KOD_WOJ2<span class="ot">&lt;-</span><span class="fu">substr</span>(unempl<span class="sc">$</span>KOD_WOJ,<span class="dv">1</span>,<span class="dv">2</span>)</span>
-<span id="cb17-4"><a href="edycja-kartogramu.html#cb17-4" aria-hidden="true" tabindex="-1"></a>dane<span class="ot">&lt;-</span><span class="fu">merge</span>(woj,unempl,<span class="at">by.x=</span><span class="st">&quot;CC_1&quot;</span>,<span class="at">by.y=</span><span class="st">&quot;KOD_WOJ2&quot;</span>)</span>
-<span id="cb17-5"><a href="edycja-kartogramu.html#cb17-5" aria-hidden="true" tabindex="-1"></a>klasy<span class="ot">&lt;-</span><span class="fu">classIntervals</span>(dane<span class="sc">$</span>UN_RATE,<span class="at">n=</span><span class="dv">4</span>,<span class="at">style=</span><span class="st">&quot;fixed&quot;</span>,<span class="at">fixedBreaks=</span><span class="fu">c</span>(<span class="fl">3.7</span>,<span class="fl">5.3</span>,<span class="fl">6.9</span>,<span class="fl">8.5</span>,<span class="fl">10.1</span>))</span>
-<span id="cb17-6"><a href="edycja-kartogramu.html#cb17-6" aria-hidden="true" tabindex="-1"></a>kolory<span class="ot">&lt;-</span><span class="fu">brewer.pal</span>(<span class="dv">4</span>,<span class="st">&quot;BuGn&quot;</span>)</span>
-<span id="cb17-7"><a href="edycja-kartogramu.html#cb17-7" aria-hidden="true" tabindex="-1"></a>kol_klas<span class="ot">&lt;-</span><span class="fu">findColours</span>(klasy,kolory)</span>
-<span id="cb17-8"><a href="edycja-kartogramu.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(klasy)</span>
-<span id="cb17-9"><a href="edycja-kartogramu.html#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(klasy)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="edycja-kartogramu.html#cb16-1" aria-hidden="true" tabindex="-1"></a>woj<span class="ot">&lt;-</span><span class="fu">read_sf</span>(<span class="st">&quot;dane/gadm36_POL_1.shp&quot;</span>)</span>
+<span id="cb16-2"><a href="edycja-kartogramu.html#cb16-2" aria-hidden="true" tabindex="-1"></a>unempl<span class="ot">&lt;-</span><span class="fu">read_xlsx</span>(<span class="st">&quot;dane/woj_un_rate.xlsx&quot;</span>)</span>
+<span id="cb16-3"><a href="edycja-kartogramu.html#cb16-3" aria-hidden="true" tabindex="-1"></a>unempl<span class="sc">$</span>KOD_WOJ2<span class="ot">&lt;-</span><span class="fu">substr</span>(unempl<span class="sc">$</span>KOD_WOJ,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb16-4"><a href="edycja-kartogramu.html#cb16-4" aria-hidden="true" tabindex="-1"></a>dane<span class="ot">&lt;-</span><span class="fu">merge</span>(woj,unempl,<span class="at">by.x=</span><span class="st">&quot;CC_1&quot;</span>,<span class="at">by.y=</span><span class="st">&quot;KOD_WOJ2&quot;</span>)</span>
+<span id="cb16-5"><a href="edycja-kartogramu.html#cb16-5" aria-hidden="true" tabindex="-1"></a>klasy<span class="ot">&lt;-</span><span class="fu">classIntervals</span>(dane<span class="sc">$</span>UN_RATE,<span class="at">n=</span><span class="dv">4</span>,<span class="at">style=</span><span class="st">&quot;fixed&quot;</span>,<span class="at">fixedBreaks=</span><span class="fu">c</span>(<span class="fl">3.7</span>,<span class="fl">5.3</span>,<span class="fl">6.9</span>,<span class="fl">8.5</span>,<span class="fl">10.1</span>))</span>
+<span id="cb16-6"><a href="edycja-kartogramu.html#cb16-6" aria-hidden="true" tabindex="-1"></a>kolory<span class="ot">&lt;-</span><span class="fu">brewer.pal</span>(<span class="dv">4</span>,<span class="st">&quot;BuGn&quot;</span>)</span>
+<span id="cb16-7"><a href="edycja-kartogramu.html#cb16-7" aria-hidden="true" tabindex="-1"></a>kol_klas<span class="ot">&lt;-</span><span class="fu">findColours</span>(klasy,kolory)</span>
+<span id="cb16-8"><a href="edycja-kartogramu.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(klasy)</span>
+<span id="cb16-9"><a href="edycja-kartogramu.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(klasy)</span></code></pre></div>
 <p>Do wyznaczenia współrzędnych centroidów województw stosujemy funkcje <em>st_centroid</em> oraz <em>st_coordinates</em> z pakietu <strong>sf</strong></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="edycja-kartogramu.html#cb18-1" aria-hidden="true" tabindex="-1"></a>wsp<span class="ot">&lt;-</span><span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(dane))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="edycja-kartogramu.html#cb17-1" aria-hidden="true" tabindex="-1"></a>wsp<span class="ot">&lt;-</span><span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(dane))</span></code></pre></div>
 <p>Współrzędne te pozwolą nam nanieść etykiety województw w formie ich nazw i wartości analizowanej zmiennej.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="edycja-kartogramu.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
-<span id="cb19-2"><a href="edycja-kartogramu.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dane[<span class="st">&quot;UN_RATE&quot;</span>],<span class="at">col=</span>kol_klas, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb19-3"><a href="edycja-kartogramu.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="dv">13</span>,<span class="at">y=</span><span class="dv">55</span>,<span class="st">&quot;Mapa 1. Stopa bezrobocia&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-4"><a href="edycja-kartogramu.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">14.15</span>,<span class="at">y=</span><span class="fl">54.8</span>,<span class="st">&quot;Stan w końcu grudnia 2020 r.&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-5"><a href="edycja-kartogramu.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">13.2</span>,<span class="at">y=</span><span class="fl">54.6</span>,<span class="st">&quot;Map 1. Unemployment rate&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-6"><a href="edycja-kartogramu.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">14.3</span>,<span class="at">y=</span><span class="fl">54.4</span>,<span class="st">&quot;As of the end of December 2020&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-7"><a href="edycja-kartogramu.html#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">13.3</span>,<span class="at">y=</span><span class="fl">52.4</span>,<span class="st">&quot;Polska = 6,2%&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-8"><a href="edycja-kartogramu.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">12.9</span>,<span class="at">y=</span><span class="fl">52.2</span>,<span class="st">&quot;Poland&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-9"><a href="edycja-kartogramu.html#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>wsp[,<span class="dv">1</span>],<span class="at">y=</span>wsp[,<span class="dv">2</span>],<span class="at">labels=</span>dane<span class="sc">$</span>NAME_1,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb19-10"><a href="edycja-kartogramu.html#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>wsp[,<span class="dv">1</span>],<span class="at">y=</span>wsp[,<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.003</span>,<span class="at">labels=</span>dane<span class="sc">$</span>UN_RATE,<span class="at">cex=</span><span class="fl">0.6</span>)</span>
-<span id="cb19-11"><a href="edycja-kartogramu.html#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>,</span>
-<span id="cb19-12"><a href="edycja-kartogramu.html#cb19-12" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">1</span>], <span class="st">&quot; - &quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">2</span>], <span class="st">&quot;]&quot;</span>),</span>
-<span id="cb19-13"><a href="edycja-kartogramu.html#cb19-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">2</span>], <span class="st">&quot; - &quot;</span>,klasy<span class="sc">$</span>brks[<span class="dv">3</span>], <span class="st">&quot;]&quot;</span>),</span>
-<span id="cb19-14"><a href="edycja-kartogramu.html#cb19-14" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">3</span>], <span class="st">&quot; - &quot;</span>,klasy<span class="sc">$</span>brks[<span class="dv">4</span>], <span class="st">&quot;]&quot;</span>),</span>
-<span id="cb19-15"><a href="edycja-kartogramu.html#cb19-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">4</span>], <span class="st">&quot; - &quot;</span>,klasy<span class="sc">$</span>brks[<span class="dv">5</span>], <span class="st">&quot;]&quot;</span>)),</span>
-<span id="cb19-16"><a href="edycja-kartogramu.html#cb19-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="fu">attr</span>(kol_klas, <span class="st">&quot;palette&quot;</span>), <span class="at">cex=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>,<span class="at">title =</span> <span class="st">&quot;%&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="edycja-kartogramu.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">mai=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb18-2"><a href="edycja-kartogramu.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dane[<span class="st">&quot;UN_RATE&quot;</span>],<span class="at">col=</span>kol_klas, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb18-3"><a href="edycja-kartogramu.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="dv">13</span>,<span class="at">y=</span><span class="dv">55</span>,<span class="st">&quot;Mapa 1. Stopa bezrobocia&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-4"><a href="edycja-kartogramu.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">14.15</span>,<span class="at">y=</span><span class="fl">54.8</span>,<span class="st">&quot;Stan w końcu grudnia 2020 r.&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-5"><a href="edycja-kartogramu.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">13.2</span>,<span class="at">y=</span><span class="fl">54.6</span>,<span class="st">&quot;Map 1. Unemployment rate&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-6"><a href="edycja-kartogramu.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">14.3</span>,<span class="at">y=</span><span class="fl">54.4</span>,<span class="st">&quot;As of the end of December 2020&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-7"><a href="edycja-kartogramu.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">13.3</span>,<span class="at">y=</span><span class="fl">52.4</span>,<span class="st">&quot;Polska = 6,2%&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-8"><a href="edycja-kartogramu.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="fl">12.9</span>,<span class="at">y=</span><span class="fl">52.2</span>,<span class="st">&quot;Poland&quot;</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-9"><a href="edycja-kartogramu.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>wsp[,<span class="dv">1</span>],<span class="at">y=</span>wsp[,<span class="dv">2</span>],<span class="at">labels=</span>dane<span class="sc">$</span>NAME_1,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb18-10"><a href="edycja-kartogramu.html#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>wsp[,<span class="dv">1</span>],<span class="at">y=</span>wsp[,<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.003</span>,<span class="at">labels=</span>dane<span class="sc">$</span>UN_RATE,<span class="at">cex=</span><span class="fl">0.6</span>)</span>
+<span id="cb18-11"><a href="edycja-kartogramu.html#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>,</span>
+<span id="cb18-12"><a href="edycja-kartogramu.html#cb18-12" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">1</span>], <span class="st">&quot; - &quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">2</span>], <span class="st">&quot;]&quot;</span>),</span>
+<span id="cb18-13"><a href="edycja-kartogramu.html#cb18-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">2</span>], <span class="st">&quot; - &quot;</span>,klasy<span class="sc">$</span>brks[<span class="dv">3</span>], <span class="st">&quot;]&quot;</span>),</span>
+<span id="cb18-14"><a href="edycja-kartogramu.html#cb18-14" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">3</span>], <span class="st">&quot; - &quot;</span>,klasy<span class="sc">$</span>brks[<span class="dv">4</span>], <span class="st">&quot;]&quot;</span>),</span>
+<span id="cb18-15"><a href="edycja-kartogramu.html#cb18-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste0</span>(<span class="st">&quot;[&quot;</span>, klasy<span class="sc">$</span>brks[<span class="dv">4</span>], <span class="st">&quot; - &quot;</span>,klasy<span class="sc">$</span>brks[<span class="dv">5</span>], <span class="st">&quot;]&quot;</span>)),</span>
+<span id="cb18-16"><a href="edycja-kartogramu.html#cb18-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="fu">attr</span>(kol_klas, <span class="st">&quot;palette&quot;</span>), <span class="at">cex=</span><span class="dv">1</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>,<span class="at">title =</span> <span class="st">&quot;%&quot;</span>)</span></code></pre></div>
 <p><img src="docs/images/plot3.png" style="display: block; margin: auto;" /></p>
 
 </div>

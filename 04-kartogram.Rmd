@@ -1,73 +1,80 @@
 # Tworzenie prostego kartogramu ćw.2 {-}
 
 
-Korzystając z publikacji [**Komunikat o sytuacji społeczno-gospodarczej województwa wielkopolskiego - luty 2021 r.**](https://poznan.stat.gov.pl/opracowania-biezace/komunikaty-i-biuletyny/inne-opracowania/komunikat-o-sytuacji-spoleczno-gospodarczej-wojewodztwa-wielkopolskiego-luty-2021-r-,1,115.html), spróbujmy stworzyć prosty kartogram zamieszczony na stronie 16 tego opracowania.
-
-```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("docs/images/mieszkania_wlkp.PNG",dpi=NA)
-```
+Korzystając z danych w pliku wynagrodzenia.xlsx, stwórz kartogram prezentujących rozkład przeciętnyh miesięcznych wynagrodzeń brutto w powiatach województwa wielkoplskiego w 2019 roku.
 
 W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla powiatów województwa wielkopolskiego za pomocą funkcji *read_xlsx* z pakietu **readxl**.
-```{r eval=FALSE}
-pow<-read_sf("dane/gadm36_POL_2.shp")
-
-mieszk<-read_xlsx("dane/wlkp_mieszk.xlsx")
-```
-
 Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskiego i dodatkowo tworzymy w zbiorze **mieszk** czteroznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_pow2
-
-```{r eval=FALSE}
-pow_wlkp<-pow[pow$NAME_1=='Wielkopolskie',]
-mieszk$KOD_POW2<-substr(mieszk$KOD_POW,1,4)
-```
-
 Łączymy oba obiekty w jeden zbiór za pomocą funkcji *merge* deklarując nazwy zmiennych, po których łączymy obydwa zbiory.
 
 ```{r eval=FALSE}
-dane<-merge(pow_wlkp,mieszk,by.x="CC_2",by.y="KOD_POW2")
+pow<-read_sf("dane/gadm36_POL_2.shp")
+wages<-read_xlsx("dane/wynagrodzenia.xlsx")
+pow_wlkp<-pow[pow$NAME_1=='Wielkopolskie',]
+wages$KOD_POW2<-substr(wages$KOD_POW,1,4)
+dane_2<-merge(pow_wlkp,wages,by.x="CC_2",by.y="KOD_POW2")
+```
+
+W niniejszym przykładzie skorzystamy z legendy dla zmiennych ciągłych, dlatego nie dzielimy zmienności badanej cech na przedziały.
+
+
+**Mapa konturowa powiatóW województwa wielkopolskiego**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_2) +
+  geom_sf()
+```
+
+**Dodanie tytułu i opisu osi wykresu mapowego.**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_2) +
+  geom_sf() +
+  xlab("Długość geograficzna")+ylab("Szerokość geograficzna") +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób")
 ```
 
 
-Kolejnym krokiem będzie podział zmienności badanej cech na przedziały.
-W tym przypadku stworzymy 5 klas o granicach opartych o przedziały kwintylowe (w każdym będzie 20% wszystkich obiektów - powiatów).
+**Wyłączenie wyświetlania siatki i współrzędnych geograficznych, białe tło.**
 
-```{r eval=FALSE}
-klasy<-classIntervals(dane$MIESZK,n=5,style="quantile")
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_2) +
+  geom_sf(fill=NA) +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób") +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank())
 ```
 
 
-Następnie z pakietu **RColorBrewer** dobieramy paletę kolorów zbliżoną do tej użytej w publikacji GUS.
+**Kolorystyka mapy, legenda.**
 
-```{r eval=FALSE}
-kolory<-brewer.pal(5,"Purples")
-```
-
-Łączymy wyznaczone klasy z kolorami z dobranej palety
-
-```{r eval=FALSE}
-kol_klas<-findColours(klasy,kolory)
-```
-
-
-Generujemy wykres, definiując legendę
-
-```{r eval=FALSE}
-par(mar=rep(0,4),mai=rep(0,4))
-plot(dane["MIESZK"],col=kol_klas, 
-     main="Mapa 2. Mieszkania oddane do użytkowania według powiatów w okresie styczeń-luty 2021 r.")
-legend("bottomleft",
-c(paste0("[", klasy$brks[1], " - ", klasy$brks[2], "]"),
-paste0("[", klasy$brks[2], " - ",klasy$brks[3], "]"),
-paste0("[", klasy$brks[3], " - ",klasy$brks[4], "]"),
-paste0("[", klasy$brks[4], " - ",klasy$brks[5], "]"),
-paste0("[", klasy$brks[5], " - ",klasy$brks[6], "]")),
-fill=attr(kol_klas, "palette"), cex=1, bty="n")
-```
-
-
-```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("docs/images/mieszkania_wlkp2.PNG", dpi=NA)
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(dane_2) +
+  geom_sf(aes(fill=WAGES)) +
+  scale_fill_continuous(low="yellow", high="red",name="Wynagrodzenie\nw zł") +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób") +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(),
+        legend.position = "right")
 ```
 
 
 
+
+**Dodanie adnotacji oraz etykiet - nazw województw i wartości wskaźnika.**
+
+```{r,fig.dim=c(8,6)}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(dane_2) +
+  geom_sf(aes(fill=WAGES)) +
+  scale_fill_continuous(low="yellow", high="red",name="Wynagrodzenie\nw zł") +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób") +
+  geom_sf_text(mapping=aes(label=NAME_2),size=2.5)+
+  geom_sf_text(mapping=aes(label=WAGES),size=2.5,nudge_y = -0.05) +
+  annotate("text",x=18.5,y=53.5, label="Polska = 5181,63",size=3) +
+  annotate("text",x=18.5,y=53.3, label="Wielkopolskie = 4687,39",size=3) +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(),
+        legend.position = "right", axis.title.x = element_blank(),axis.title.y = element_blank())
+```

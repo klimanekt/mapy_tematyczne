@@ -1,56 +1,88 @@
-# Edycja kartogramu {-}
+# Kartogramy w pakiecie tmap {-}
 
 
-Na bazie kartogramu z części **Tworzenie prostego kartogramu ćw.1**, zmodyfikuj go dodając:
-
-- tytuł wykresu,
-- nazwy województw,
-- wartości zmiennych,
-- liczbę obiektów w legendzie.
+Na bazie kartogramOw z części [Tworzenie prostego kartogramu ćw.1][] oraz [Tworzenie prostego kartogramu ćw.2][], wykonaj je w pakiecie **tmap**.
 
 
-Powtórzenie kodu z części **Tworzenie prostego kartogramu ćw.1**
+**BEZROBOCIE** 
+```{r}
+tm_shape(dane_1) +
+    tm_fill()
 
-```{r eval=FALSE}
-woj<-read_sf("dane/gadm36_POL_1.shp")
-unempl<-read_xlsx("dane/woj_un_rate.xlsx")
-unempl$KOD_WOJ2<-substr(unempl$KOD_WOJ,1,2)
-dane<-merge(woj,unempl,by.x="CC_1",by.y="KOD_WOJ2")
-klasy<-classIntervals(dane$UN_RATE,n=4,style="fixed",fixedBreaks=c(3.7,5.3,6.9,8.5,10.1))
-kolory<-brewer.pal(4,"BuGn")
-kol_klas<-findColours(klasy,kolory)
-str(klasy)
-levels(klasy)
+tm_shape(dane_1) +
+  tm_borders()
+
+tm_shape(dane_1) +
+  tm_polygons()
+
+tm_shape(dane_1) +
+  tm_fill() +
+  tm_borders()
+
+tm_shape(dane_1) +
+  tm_polygons(col = 'UN_RATE')
+
+intevals<-c(3.6,5.2,6.8,8.4,10.1)
+tm_shape(dane_1) +
+  tm_polygons(col = 'UN_RATE',breaks=intervals)
+
+intevals<-c(3.6,5.2,6.8,8.4,10.1)
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn')
+
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7)
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7) +
+  tm_style('bw')
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7) +
+  tm_style('classic')
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7) +
+  tm_style('cobalt')
+
+
+dane_1$groups<-as.character(cut(dane_1$UN_RATE,breaks=intervals))
+etykiety=c("3,7 -    5,2","5,3 -    6,8","6,9 -    8,4","8,5 - 10,1")
+ile<-as.character(paste0(" (",as.vector(table(dane_1$groups)),")"))
+etykiety<-paste0(etykiety,ile)
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn',labels=etykiety,legend.reverse=T, title="%") +
+  tm_text("NAME_1", size = 0.8)+
+  tm_shape(dane_1) +
+  tm_text('UN_RATE', size=0.8, ymod=-1)+
+  tm_layout(title="Mapa 1. Stopa bezrobocia\nStan w końcu grudnia 2020 r.\nMap 1. Unemployment rate\nAs of the end of December 2020",
+            title.position = c(0.01,0.95),title.size = 0.6, legend.just = "center",
+            inner.margins=c(0.1, 0.1, 0.1, 0.1))+
+  tm_credits("Polska = 6.2%\nPoland",position = c("right","top"))
+```
+
+**WYNAGRODZENIA** 
+```{r, fig.dim=c(21,15)}
+tm_shape(dane_2) +
+  tm_polygons('WAGES',style="cont", title="Wynagrodzenia w zł") +
+  tm_text("NAME_2", size = 1, n=5)+
+  tm_shape(dane_2) +
+  tm_text('WAGES', size=1, ymod=-0.8)+
+  tm_layout(title="Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku\nBez podmiotów gospodarczych do 9 osób",
+            title.position = c(0.01,0.97),title.size = 2, legend.just = "center", legend.text.size = 1,
+            legend.title.size = 1, inner.margins=c(0.07, 0.07, 0.07, 0.07)) +
+  tm_credits("Polska = 5181,63\n\nWielkopolskie = 4687,39",position = c("left","bottom"),size = 1)
 ```
 
 
-Do wyznaczenia współrzędnych centroidów województw stosujemy funkcje *st_centroid* oraz *st_coordinates* z pakietu **sf**
-```{r eval=FALSE}
-wsp<-st_coordinates(st_centroid(dane))
-```
 
-Współrzędne te pozwolą nam nanieść etykiety województw w formie ich nazw i wartości analizowanej zmiennej.
-
-```{r eval=FALSE}
-par(mar=rep(0,4),mai=rep(0,4))
-plot(dane["UN_RATE"],col=kol_klas, main="")
-text(x=13,y=55,"Mapa 1. Stopa bezrobocia",cex=0.8)
-text(x=14.15,y=54.8,"Stan w końcu grudnia 2020 r.",cex=0.8)
-text(x=13.2,y=54.6,"Map 1. Unemployment rate",cex=0.8)
-text(x=14.3,y=54.4,"As of the end of December 2020",cex=0.8)
-text(x=13.3,y=52.4,"Polska = 6,2%",cex=0.8)
-text(x=12.9,y=52.2,"Poland",cex=0.8)
-text(x=wsp[,1],y=wsp[,2],labels=dane$NAME_1,cex=0.8)
-text(x=wsp[,1],y=wsp[,2]*1.003,labels=dane$UN_RATE,cex=0.6)
-legend("bottomleft",
-       c(paste0("[", klasy$brks[1], " - ", klasy$brks[2], "]"),
-         paste0("[", klasy$brks[2], " - ",klasy$brks[3], "]"),
-         paste0("[", klasy$brks[3], " - ",klasy$brks[4], "]"),
-         paste0("[", klasy$brks[4], " - ",klasy$brks[5], "]")),
-       fill=attr(kol_klas, "palette"), cex=1, bty="n",title = "%")
-```
-
-
-```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("docs/images/plot3.PNG", dpi=NA)
-```
