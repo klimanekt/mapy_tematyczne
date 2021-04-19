@@ -65,7 +65,7 @@ ggplot(dane_2) +
 
 **Dodanie adnotacji oraz etykiet - nazw województw i wartości wskaźnika.**
 
-```{r,fig.dim=c(8,6)}
+```{r,fig.dim=c(12,9)}
 par(mai=rep(0,4),mar=rep(0,4))
 ggplot(dane_2) +
   geom_sf(aes(fill=WAGES)) +

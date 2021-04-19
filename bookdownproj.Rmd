@@ -1,0 +1,346 @@
+--- 
+title: "Mapy tematyczne w R: ggplot2, tmap"
+author: 
+- name: "Tomasz Klimanek"
+  affiliation: "Katedra Statystyki, Uniwersytet Ekonomiczny w Poznaniu"
+  email: tomasz.klimanek@ue.poznan.pl
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+# Wstęp {-}
+
+Na poprzednich zajęciach przedstawione zostały metody tworzenia map tematycznych za pomocą funkcji *plot* z pakietu **base**. Celem niniejszych zajeć będzie kontynuacja problematyki tworzenia map tematycznych, ale za pomocą pakietów **ggplot2** oraz **tmap**.
+
+<!--chapter:end:index.Rmd-->
+
+# Wykorzystywane pakiety {-}
+
+Szczegółowe informacje na temat pakietu **ggplot2** mozna znaleźć w dokumentacji pakietu na stronie internetowej [https://cran.r-project.org/web/packages/ggplot2/index.html](https://cran.r-project.org/web/packages/ggplot2/index.html).
+
+Szczegółowe informacje na temat pakietu **tmap** mozna znaleźć w dokumentacji pakietu na stronie internetowej [https://cran.r-project.org/web/packages/tmap/index.html](https://cran.r-project.org/web/packages/ggplot2/index.html).
+
+
+W celu stworzenia map tematycznych na dzisiejszych zajęciach wykorzystywane będą także następujące pakiety:
+
+
+
+Instalacja pakietów
+```{r eval=FALSE}
+install.packages("readxl")
+install.packages("sf")
+install.packages("dplyr")
+install.packages("RColorBrewer")
+install.packages("ggplot2")
+install.packages('tmap')
+```
+
+Wczytanie bibliotek
+```{r eval=FALSE}
+library("readxl")
+library("sf")
+library("dplyr")
+library("RColorBrewer")
+library("ggplot2")
+library('tmap')
+```
+
+<!--chapter:end:02-Pakiety.Rmd-->
+
+# Tworzenie prostego kartogramu ćw.1 {-}
+
+
+Korzystając z publikacji [**Bezrobocie rejestrowane. I-IV kwartał 2020 roku**](https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/bezrobocie-rejestrowane-i-iv-kwartal-2020-roku,3,43.html), spróbujmy stworzyć prosty kartogram zamieszczony na stronie 9 tego opracowania.
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("docs/images/bezrobocie_rej_XII_2020.PNG",dpi=NA)
+```
+
+W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla województw za pomocą funkcji *read_xlsx* z pakietu **readxl**.
+W zbiorze **unempl** dwuznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_woj2.
+Łączymy oba obiekty w jeden zbiór za pomocą funkcji *merge* deklarując nazwy zmiennych, po których łączymy obydwa zbiory.
+
+```{r eval=FALSE}
+woj<-read_sf("dane/gadm36_POL_1.shp")
+unempl<-read_xlsx("dane/woj_un_rate.xlsx")
+unempl$KOD_WOJ2<-substr(unempl$KOD_WOJ,1,2)
+dane_1<-merge(woj,unempl,by.x="CC_1",by.y="KOD_WOJ2")
+```
+
+
+Stworzenie mapy konturowej województw za pomocą instrukcji ggplot(data=dane), w której deklarujemy obiekt klasy **sf** za pomocą instrukcji *data=*. Na końcu linii znajduje się znak *+* oznaczający ciąg dalszy polecenia. W drugiej linii pojawia się instrukcja *geom_sf*, dzięki której dodajemy geometrię zawartą we wcześniej zdefiniowanym obiekcie *dane*. 
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_1) +
+  geom_sf()
+```
+
+**Dodanie tytułu i opisu osi wykresu mapowego.**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_1) +
+  geom_sf() +
+  xlab("Długość geograficzna")+ylab("Szerokość geograficzna") +
+  ggtitle("Mapa 1. Stopa bezrobocia\nStan w końcu grudnia 2020 r.", subtitle = "Map 1. Unemployment rate\nAs of the end of December 2020")
+```
+
+
+**Wyłączenie wyświetlania siatki i współrzędnych geograficznych, białe tło.**
+
+- dodanie opcji *fill=NA* w poleceniu *geom_sf* w celu wyeliminowania szarego tła
+- usunięice linii *xlab("Długość geograficzna")+ylab("Szerokość geograficzna") +*
+- dodanie elementów instrukcji *theme*
+    - *rect=element_blank()* - usunięcie tła wnętrzna wykresu (między osiami)
+    - *axis.ticks = element_blank()* - usunięcie znacznikóW osi,
+    - *axis.text.x = element_blank()* - usunięcie tekstu osi x,
+    - *axis.text.y = element_blank()* - usunięcie tekstu osi y.
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_1) +
+  geom_sf(fill=NA) +
+  ggtitle("Mapa 1. Stopa bezrobocia\nStan w końcu grudnia 2020 r.", subtitle = "Map 1. Unemployment rate\nAs of the end of December 2020") +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank())
+```
+
+
+**Kolorystyka mapy, legenda.**
+
+```{r}
+intervals<-c(3.6,5.2,6.8,8.4,10.1)
+dane_1$groups<-as.character(cut(dane_1$UN_RATE,breaks=intervals))
+etykiety=c("3,7 -    5,2","5,3 -    6,8","6,9 -    8,4","8,5 - 10,1")
+ile<-as.character(paste0(" (",as.vector(table(dane_1$groups)),")"))
+etykiety<-paste0(etykiety,ile)
+pal<-colorRampPalette(c("#EDF8FB","#238B45"))(4)
+
+
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(dane_1) +
+  geom_sf(aes(fill=groups)) +
+  scale_fill_manual(values=pal,labels=etykiety) +
+  ggtitle("Mapa 1. Stopa bezrobocia\nStan w końcu grudnia 2020 r.", subtitle = "Map 1. Unemployment rate\nAs of the end of December 2020") +
+  labs(fill="%")+
+  guides(fill=guide_legend(reverse = T)) +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(),
+        legend.position = c(0.1,0.15),legend.title.align=0.5,legend.text.align =  )
+```
+
+
+
+
+**Dodanie adnotacji oraz etykiet - nazw województw i wartości wskaźnika.**
+
+
+```{r}
+ggplot(dane_1) +
+  geom_sf(aes(fill=groups)) +
+  scale_fill_manual(values=pal,labels=etykiety) +
+  ggtitle("Mapa 1. Stopa bezrobocia\nStan w końcu grudnia 2020 r.", subtitle = "Map 1. Unemployment rate\nAs of the end of December 2020") +
+  labs(fill="%")+
+  guides(fill=guide_legend(reverse = T)) +
+  geom_sf_text(mapping=aes(label=NAME_1),size=3)+
+  geom_sf_text(mapping=aes(label=UN_RATE),size=3,nudge_y = -0.2)+
+  annotate("text",x=15,y=55, label="Polska = 6,2%",size=4) +
+  annotate("text",x=14.68,y=54.8, label="Poland",size=4) +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(),
+        axis.title.x = element_blank(), axis.title.y = element_blank(),
+        legend.position = c(0.1,0.15),legend.title.align=0.5,legend.text.align =  )
+```
+
+
+<!--chapter:end:03-kartogram.Rmd-->
+
+# Tworzenie prostego kartogramu ćw.2 {-}
+
+
+Korzystając z danych w pliku wynagrodzenia.xlsx, stwórz kartogram prezentujących rozkład przeciętnyh miesięcznych wynagrodzeń brutto w powiatach województwa wielkoplskiego w 2019 roku.
+
+W pierwszej kolejności wczytujemy dane przestrzenne za pomocą funkcji *read_sf* z pakietu **sf**, a następnie dane atrybutowe dla powiatów województwa wielkopolskiego za pomocą funkcji *read_xlsx* z pakietu **readxl**.
+Ograniczamy zbiór danych przestrzennych do powiatóW województwa wielkopolskiego i dodatkowo tworzymy w zbiorze **mieszk** czteroznakowy kod województwa za pomocą funkcji *substr* i zapisujemy go w zmiennej o nazwie kod_pow2
+Łączymy oba obiekty w jeden zbiór za pomocą funkcji *merge* deklarując nazwy zmiennych, po których łączymy obydwa zbiory.
+
+```{r eval=FALSE}
+pow<-read_sf("dane/gadm36_POL_2.shp")
+wages<-read_xlsx("dane/wynagrodzenia.xlsx")
+pow_wlkp<-pow[pow$NAME_1=='Wielkopolskie',]
+wages$KOD_POW2<-substr(wages$KOD_POW,1,4)
+dane_2<-merge(pow_wlkp,wages,by.x="CC_2",by.y="KOD_POW2")
+```
+
+W niniejszym przykładzie skorzystamy z legendy dla zmiennych ciągłych, dlatego nie dzielimy zmienności badanej cech na przedziały.
+
+
+**Mapa konturowa powiatóW województwa wielkopolskiego**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_2) +
+  geom_sf()
+```
+
+**Dodanie tytułu i opisu osi wykresu mapowego.**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_2) +
+  geom_sf() +
+  xlab("Długość geograficzna")+ylab("Szerokość geograficzna") +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób")
+```
+
+
+**Wyłączenie wyświetlania siatki i współrzędnych geograficznych, białe tło.**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(data=dane_2) +
+  geom_sf(fill=NA) +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób") +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank())
+```
+
+
+**Kolorystyka mapy, legenda.**
+
+```{r}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(dane_2) +
+  geom_sf(aes(fill=WAGES)) +
+  scale_fill_continuous(low="yellow", high="red",name="Wynagrodzenie\nw zł") +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób") +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(),
+        legend.position = "right")
+```
+
+
+
+
+**Dodanie adnotacji oraz etykiet - nazw województw i wartości wskaźnika.**
+
+```{r,fig.dim=c(12,9)}
+par(mai=rep(0,4),mar=rep(0,4))
+ggplot(dane_2) +
+  geom_sf(aes(fill=WAGES)) +
+  scale_fill_continuous(low="yellow", high="red",name="Wynagrodzenie\nw zł") +
+  ggtitle("Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku", subtitle = "Bez podmiotów gospodarczych do 9 osób") +
+  geom_sf_text(mapping=aes(label=NAME_2),size=2.5)+
+  geom_sf_text(mapping=aes(label=WAGES),size=2.5,nudge_y = -0.05) +
+  annotate("text",x=18.5,y=53.5, label="Polska = 5181,63",size=3) +
+  annotate("text",x=18.5,y=53.3, label="Wielkopolskie = 4687,39",size=3) +
+  theme(rect=element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(),
+        legend.position = "right", axis.title.x = element_blank(),axis.title.y = element_blank())
+```
+
+<!--chapter:end:04-kartogram.Rmd-->
+
+# Tworzenie prostego kartogramu - zadanie 1 {-}
+
+
+Korzystając z publikacji [**Metropolia Poznań 2010-2019**](https://poznan.stat.gov.pl/publikacje-i-foldery/inne-opracowania/metropolia-poznan-2010-2019,11,1.html) oraz danych w ***Banku Danych Lokalnych***(https://bdl.stat.gov.pl/BDL/start) spróbuj stworzyć prosty kartogram zamieszczony na stronie 22 tego opracowania.
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("docs/images/density_metr.PNG",dpi=NA)
+```
+
+<!--chapter:end:05-kartogram.Rmd-->
+
+# Kartogramy w pakiecie tmap {-}
+
+
+Na bazie kartogramOw z części [Tworzenie prostego kartogramu ćw.1][] oraz [Tworzenie prostego kartogramu ćw.2][], wykonaj je w pakiecie **tmap**.
+
+
+**BEZROBOCIE** 
+```{r}
+tm_shape(dane_1) +
+    tm_fill()
+
+tm_shape(dane_1) +
+  tm_borders()
+
+tm_shape(dane_1) +
+  tm_polygons()
+
+tm_shape(dane_1) +
+  tm_fill() +
+  tm_borders()
+
+tm_shape(dane_1) +
+  tm_polygons(col = 'UN_RATE')
+
+intevals<-c(3.6,5.2,6.8,8.4,10.1)
+tm_shape(dane_1) +
+  tm_polygons(col = 'UN_RATE',breaks=intervals)
+
+intevals<-c(3.6,5.2,6.8,8.4,10.1)
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn')
+
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7)
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7) +
+  tm_style('bw')
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7) +
+  tm_style('classic')
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn') +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 0.7) +
+  tm_style('cobalt')
+
+
+dane_1$groups<-as.character(cut(dane_1$UN_RATE,breaks=intervals))
+etykiety=c("3,7 -    5,2","5,3 -    6,8","6,9 -    8,4","8,5 - 10,1")
+ile<-as.character(paste0(" (",as.vector(table(dane_1$groups)),")"))
+etykiety<-paste0(etykiety,ile)
+
+tm_shape(dane_1) +
+  tm_polygons('UN_RATE',breaks=intervals,palette='BuGn',labels=etykiety,legend.reverse=T, title="%") +
+  tm_text("NAME_1", size = 0.8)+
+  tm_shape(dane_1) +
+  tm_text('UN_RATE', size=0.8, ymod=-1)+
+  tm_layout(title="Mapa 1. Stopa bezrobocia\nStan w końcu grudnia 2020 r.\nMap 1. Unemployment rate\nAs of the end of December 2020",
+            title.position = c(0.01,0.95),title.size = 0.6, legend.just = "center",
+            inner.margins=c(0.1, 0.1, 0.1, 0.1))+
+  tm_credits("Polska = 6.2%\nPoland",position = c("right","top"))
+```
+
+**WYNAGRODZENIA** 
+```{r, fig.dim=c(21,15)}
+tm_shape(dane_2) +
+  tm_polygons('WAGES',style="cont", title="Wynagrodzenia w zł") +
+  tm_text("NAME_2", size = 1, n=5)+
+  tm_shape(dane_2) +
+  tm_text('WAGES', size=1, ymod=-0.8)+
+  tm_layout(title="Przeciętne miesięczne Wynagrodzenie brutto w 2019 roku\nBez podmiotów gospodarczych do 9 osób",
+            title.position = c(0.01,0.97),title.size = 2, legend.just = "center", legend.text.size = 1,
+            legend.title.size = 1, inner.margins=c(0.07, 0.07, 0.07, 0.07)) +
+  tm_credits("Polska = 5181,63\n\nWielkopolskie = 4687,39",position = c("left","bottom"),size = 1)
+```
+
+
+
+
+<!--chapter:end:06-kartogram.Rmd-->
+
+# Tworzenie prostego kartogramu - zadanie 2 {-}
+
+
+Sporządź kartogram z zadania 1 [Tworzenie prostego kartogramu - zadanie 1][] wykorzystując pakiet **tmap**.
+
+<!--chapter:end:07-kartogram.Rmd-->
+
